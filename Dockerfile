@@ -24,8 +24,11 @@ COPY pubspec.yaml pubspec.lock ./
 RUN flutter pub get
 
 COPY . .
-ARG BUILD_STAMP=unset
-RUN flutter build web --release --dart-define=BUILD_STAMP="${BUILD_STAMP}"
+# Back4app Containers has no field for Docker build arguments, so a build ARG
+# passed from the dashboard is not an option: the stamp is computed here, at
+# build time, which also means it is always the real build moment.
+RUN flutter build web --release \
+      --dart-define=BUILD_STAMP="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 FROM nginx:1.27-alpine
 COPY --from=build /app/build/web /usr/share/nginx/html

@@ -25,13 +25,16 @@ Read the article: — link added at publication.
 4. Pick your fork, leave the Dockerfile path as the repository root, and deploy
 5. Open the URL it gives you and check the build stamp
 
-To pass the stamp at build time, set `BUILD_STAMP` as a build argument.
+The stamp is computed inside the image build. Back4app Containers has no field
+for Docker build arguments, so a value passed from the dashboard would never
+reach `--dart-define`; computing it in the `RUN` step means it is always the
+real build moment.
 
 ## Run it locally
 
 ```
 flutter build web --release --dart-define=BUILD_STAMP="$(date -u +%Y-%m-%dT%H:%MZ)"
-docker build --build-arg BUILD_STAMP="$(date -u +%Y-%m-%dT%H:%MZ)" -t flutter-web .
+docker build -t flutter-web .
 docker run --rm -p 8080:80 flutter-web
 ```
 
