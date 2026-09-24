@@ -7,7 +7,7 @@ path to hosting a Flutter build in 2026.
 **17 seconds** locally, and the container image builds the same output from a
 pinned Flutter 3.47.5 SDK and serves it with nginx.
 
-Read the article: — link added at publication.
+> **Read the article:** [How to Host a Flutter Web App With Docker, Without Managing a Server](https://www.back4app.com/blog/host-a-flutter-web-app-with-docker)
 
 ## What is in here
 
